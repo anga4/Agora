@@ -21,7 +21,7 @@ trait TransferValueWithDenominatorWithNumOfMarkedContinuingBallots[C <: Candidat
     // println("Pending winners: " + pendingWinners)
     var num = 0
     markings match {
-      case None => throw new Exception("Last parcel is undetermined.")
+      case None       => throw new Exception("Last parcel is undetermined.")
       case Some(mrks) =>
         for (b <- election if !b.preferences.isEmpty) {
 
@@ -51,7 +51,7 @@ trait TransferValueWithDenominatorWithNumOfMarkedContinuingBallotsOrOne[C <: Can
     // println("TV with denominator with the cardinality of marked non-exhausted ballots")
     var num = 0
     markings match {
-      case None => throw new Exception("Last parcel is undetermined.")
+      case None       => throw new Exception("Last parcel is undetermined.")
       case Some(mrks) =>
         for (b <- election if !b.preferences.isEmpty) {
           if (

@@ -30,7 +30,7 @@ class AustralianSenate[C <: Candidate]
     with SenateSurplusDistribution[C]                    // Section 273 (9)(b)
     with SenateNewWinnersDuringSurplusesDistribution[C]
     with SenateNewWinnersDuringExclusion[C]
-    with UnfairExclusionTieResolution[C] // TODO
+    with UnfairExclusionTieResolution[C]                 // TODO
     {
 
   // def declareNewWinnersWhileDistributingSurpluses(totals: Map[Candidate, Rational], election:Election[ACTBallot]):  List[(Candidate,Rational)]
@@ -51,7 +51,7 @@ class AustralianSenate[C <: Candidate]
     surplus match {
       case Some(s) =>
         computeNotionalVotes(candidate: C, totals: Map[C, Rational]) + s
-      case None => throw new Exception("Surplus is None in computeAdjustedNotionalVotes.")
+      case None    => throw new Exception("Surplus is None in computeAdjustedNotionalVotes.")
     }
   }
 
@@ -73,7 +73,7 @@ class AustralianSenate[C <: Candidate]
     val orderedTotals = totals.toList.sortBy(_._2).reverse
     // it does not matter how tie of equal values is resolved here, because we care only about values, hence - simple sort
     // orderedTotals.take(numRemainingVacancies).foldLeft(Rational(0,1))(_+(quota-totals(_._2)))
-    var aggregate = Rational(0, 1)
+    var aggregate     = Rational(0, 1)
     for (candidate <- orderedTotals.take(numRemainingVacancies))
       aggregate += (quota - totals(candidate._1))
     aggregate
@@ -88,7 +88,7 @@ class AustralianSenate[C <: Candidate]
 
     var pickedTotals: Map[C, Rational] = Map()
     bulktype match {
-      case ExclusionBulk =>
+      case ExclusionBulk           =>
         pickedTotals = totals.filter(p => computeNotionalVotes(p._1, totals) >= vacancyShortfall) // Section 273 (13A)(a)
       case SurplusDistributionBulk =>
         pickedTotals = totals.filter(p =>
@@ -125,9 +125,9 @@ class AustralianSenate[C <: Candidate]
       case Some(cA) =>
         totalsOfCandidatesPotentiallyB = totals.filter(p => p._2 < totals(cA))
       // val candidateB = totals.clone().filter(p => p._2 == valueOfCandidateB).head._1
-      case None =>
+      case None     =>
         bulktype match {
-          case ExclusionBulk =>
+          case ExclusionBulk           =>
             totalsOfCandidatesPotentiallyB =
               totals.filter(p => computeNotionalVotes(p._1, totals) < vacancyShortfall)
           case SurplusDistributionBulk =>
@@ -162,7 +162,7 @@ class AustralianSenate[C <: Candidate]
 
     var potentialCandidatesC: Map[C, Rational] = Map()
     bulktype match {
-      case ExclusionBulk =>
+      case ExclusionBulk           =>
         potentialCandidatesC =
           totals.filter(p => computeNotionalVotes(p._1, totals) < leadingShortFall)
       case SurplusDistributionBulk =>
@@ -185,13 +185,13 @@ class AustralianSenate[C <: Candidate]
       surplus: Option[Rational]
   ): List[(C, Rational)] = {
 
-    val orderedCandidates = totals.toList.sortBy(_._2) // TODO: sort appropriately
+    val orderedCandidates     = totals.toList.sortBy(_._2) // TODO: sort appropriately
     println("orderedCandidates: " + orderedCandidates)
-    val vacancyShortfall = computeVacancyShortfall(totals, numRemainingVacancies, quota)
+    val vacancyShortfall      = computeVacancyShortfall(totals, numRemainingVacancies, quota)
     println("vacancyShortfall: " + vacancyShortfall)
     var candidateB: Option[C] = None
     bulktype match {
-      case ExclusionBulk =>
+      case ExclusionBulk           =>
         val candidateA = returnCandidateA(totals, vacancyShortfall, ExclusionBulk, None)
         println("candidateA: " + candidateA)
         candidateB = returnCandidateB(totals, candidateA, vacancyShortfall, ExclusionBulk, None)
@@ -205,20 +205,20 @@ class AustralianSenate[C <: Candidate]
         println("candidateB: " + candidateB)
     }
     candidateB match {
-      case Some(cB) => // "in a case where Candidate B has been identified"
+      case Some(cB) =>        // "in a case where Candidate B has been identified"
         var notionalVotesOfB: Rational = Rational(0, 1)
         bulktype match {
-          case ExclusionBulk => notionalVotesOfB = computeNotionalVotes(cB, totals)
+          case ExclusionBulk           => notionalVotesOfB = computeNotionalVotes(cB, totals)
           case SurplusDistributionBulk =>
             notionalVotesOfB = computeAdjustedNotionalVotes(cB, totals, surplus)
         }
-        val leadingShortfall = returnLeadingShortfall(totals, quota)
+        val leadingShortfall           = returnLeadingShortfall(totals, quota)
         if (notionalVotesOfB < leadingShortfall) { // Section273 (13A)(c)
           orderedCandidates.take(orderedCandidates.indexOf(cB) + 1)
         } else { // Section273 (13A)(d)
           var candidateC: Option[C] = None
           bulktype match {
-            case ExclusionBulk =>
+            case ExclusionBulk           =>
               candidateC = returnCandidateC(totals, leadingShortfall, ExclusionBulk, None)
             case SurplusDistributionBulk =>
               candidateC =
@@ -233,7 +233,7 @@ class AustralianSenate[C <: Candidate]
             // This is unclear from 13(A)(d). But can be analogously with 13(A)(b),(c) and (d) for CandidateB.")
           }
         }
-      case None => List() // Candidate B has not been identified
+      case None     => List() // Candidate B has not been identified
     }
   }
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -312,7 +312,7 @@ class AustralianSenate[C <: Candidate]
           ws
         } else {
           quotaReached(tls, result.getQuota) match {
-            case true =>
+            case true  =>
               val ws: List[(C, Rational)] =
                 returnNewWinners(tls, result.getQuota) // sorted! tie resolved!
               println("New winners: " + ws)
@@ -327,7 +327,7 @@ class AustralianSenate[C <: Candidate]
                   val newElection: Election[C, ACTBallot] = res._1
                   val newWinners: List[(C, Rational)]     = res._2
 
-                  val nws = ws.length + newWinners.length
+                  val nws        = ws.length + newWinners.length
                   println("Number of winners in this recursive call: " + nws)
                   val allWinners = ws ::: newWinners
                   if (nws == numVacancies) { allWinners }
@@ -339,11 +339,11 @@ class AustralianSenate[C <: Candidate]
                     ) ::: allWinners
                     // TODO: care should be taken that newElection is not empty?!
                   }
-                case true => ws
+                case true  => ws
               }
             case false =>
               // Section 273 (13)(b) => (13A) and (13)(a) => (13AA)
-              val candidatesToExclude =
+              val candidatesToExclude                 =
                 getCandidatesToExclude(tls, numVacancies, result.getQuota, ExclusionBulk, None)
               val res                                 = exclusion(election, ccandidates, candidatesToExclude, numVacancies)
               val newElection: Election[C, ACTBallot] = res._1
@@ -377,13 +377,13 @@ class AustralianSenate[C <: Candidate]
   ): List[(C, Rational)] = {
 
     var candidatesToExclude: List[(C, Rational)] = List()
-    val candidatesForBulkExclusion =
+    val candidatesForBulkExclusion               =
       selectCandidatesForBulkExclusion(totals, numRemainingVacancies, quota, bulktype, surplus)
     if (candidatesForBulkExclusion.nonEmpty) { // DO BULK EXCLUSION  -  Section 273 (13)(b) => (13A)
       candidatesToExclude = candidatesForBulkExclusion
     } else { // Exclude the least voted candidate  - Section 273 (13)(a) => (13AA)
       bulktype match {
-        case ExclusionBulk =>
+        case ExclusionBulk           =>
           val leastVotedCandidate = chooseCandidateForExclusion(totals)
           println("Candidate to be excluded: " + leastVotedCandidate)
           result.addExcludedCandidate(leastVotedCandidate._1, leastVotedCandidate._2)
@@ -409,7 +409,7 @@ class AustralianSenate[C <: Candidate]
       val (cand, ctotal, markings) =
         result.takeButRetainFirstPendingWinner // IT IS NOT REMOVED FROM PENDING YET
 
-      val tls = newElection.firstVotes(ccandidates)
+      val tls                 = newElection.firstVotes(ccandidates)
       val candidatesToExclude = getCandidatesToExclude(
         tls,
         numVacancies,

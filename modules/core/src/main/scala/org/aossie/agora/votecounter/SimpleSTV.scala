@@ -80,7 +80,7 @@ class SimpleSTV[C <: Candidate]
       for (c <- ccands) yield (c, tls(c))
     } else {
       quotaReached(tls, result.getQuota) match {
-        case true =>
+        case true  =>
           println("The quota is reached.")
           val ws: List[(C, Rational)] = returnNewWinners(tls, result.getQuota)
           println("New winners: " + ws)
@@ -99,13 +99,13 @@ class SimpleSTV[C <: Candidate]
                 numVacancies - ws.length
               ) ::: ws
             // TODO: care should be taken that newElection is not empty?!
-            case true => ws
+            case true  => ws
           }
         case false =>
           val leastVotedCandidate = chooseCandidateForExclusion(tls)
           println("Excluding " + leastVotedCandidate)
           result.addExcludedCandidate(leastVotedCandidate._1, leastVotedCandidate._2)
-          val newElection = exclusion(election, leastVotedCandidate._1, numVacancies)
+          val newElection         = exclusion(election, leastVotedCandidate._1, numVacancies)
           // printElection(newElection)
           winners(
             newElection,
@@ -145,7 +145,7 @@ class SimpleSTV[C <: Candidate]
       println("Distributing the surplus of " + winner)
       val surplus = ctotal - result.getQuota
 
-      val tv = computeTransferValue(surplus, election, pendingWinners, winner, None)
+      val tv  = computeTransferValue(surplus, election, pendingWinners, winner, None)
       println("tv = " + tv)
       val res = distributeSurplusVotes(election, winner, ctotal, None, pendingWinners, tv)
       res._1

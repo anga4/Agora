@@ -59,7 +59,7 @@ object PreferencesParserWithIndifference
       case ~(">", cand) =>
         rank = rank + 1
         (cand, rank)
-      case _ => throw new Exception
+      case _            => throw new Exception
     } | ("=" ~ candidate) ^^ {
       case ~("=", cand) => (cand, rank)
       case _            => throw new Exception

@@ -42,7 +42,7 @@ object InstantExhaustiveDropOffRule
   ): List[(C, Rational)] = {
 
     val majorityRational = Rational(1, 2)
-    val incrememtSize =
+    val incrememtSize    =
       5 // drop off percentage increases by 5% in each round of elimination till 25%
     var tls = election.firstVotes(ccandidates).toList.sortWith(_._2 > _._2)
     if (tls.size > 2) {
@@ -59,7 +59,7 @@ object InstantExhaustiveDropOffRule
           case Some((c, _)) =>
             val newElection = exclude(election, c)
             winners(newElection, ccandidates.filterNot(x => x == c), numVacancies)
-          case None =>
+          case None         =>
             winners(election, ccandidates, numVacancies)
         }
       }

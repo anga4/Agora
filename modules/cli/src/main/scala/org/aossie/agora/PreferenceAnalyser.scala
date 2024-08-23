@@ -90,7 +90,7 @@ object PreferenceAnalyser {
           val candidates = CandidatesParser.read(c.directory + c.candidatesfile)
           val election   = PreferencesParser.read(c.directory + filename)
           callMethod(c, election, candidates)
-        case None => // ALL FILES IN THE DIRECTORY ARE ANALYSED
+        case None           => // ALL FILES IN THE DIRECTORY ARE ANALYSED
           val candidates = CandidatesParser.read(c.directory + c.candidatesfile)
           val files      = new java.io.File(c.directory).listFiles.filter(_.getName.endsWith(".kat"))
           for (file <- files) {

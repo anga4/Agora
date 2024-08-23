@@ -98,7 +98,7 @@ trait ACTExclusionTieResolution[C <: Candidate] extends STV[C, ACTBallot] {
 
     var min = Rational(Int.MaxValue, 1)
     for (kv <- totals) if (kv._2 < min) min = kv._2
-    val equaltotals = totals.filter(_._2 == min)
+    val equaltotals       = totals.filter(_._2 == min)
     // println("Equal smallest totals: " + equaltotals)
     val smallestCandidate = recFindSmallest(equaltotals, result.getTotalsHistoryClone.tail)
     if (smallestCandidate.size > 1) {

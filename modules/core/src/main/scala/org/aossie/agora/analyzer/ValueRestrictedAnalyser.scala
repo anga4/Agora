@@ -51,7 +51,7 @@ object ValueRestrictedAnalyser extends PreferenceAnalysisMethod[Candidate, Ballo
           "\n\nPreference profile is not value restricted for the triplet " + list.mkString(" , ")
         )
         false
-      case None =>
+      case None       =>
         println("\n\nPreference profile is value restricted.\n\n")
         true
     }

@@ -32,10 +32,10 @@ trait ACTExclusion[C <: Candidate] extends STV[C, ACTBallot] {
     var list: List[ACTBallot[C]]        = Nil
     var setExhausted: Set[ACTBallot[C]] = Set()
     value match {
-      case None => throw new Exception("Argument value are missing in trait ACTExclusion")
+      case None    => throw new Exception("Argument value are missing in trait ACTExclusion")
       case Some(v) =>
         newWinners match {
-          case None => throw new Exception("Argument newWinners are missing in trait ACTExclusion")
+          case None     => throw new Exception("Argument newWinners are missing in trait ACTExclusion")
           case Some(nW) =>
             for (b <- election if b.preferences.nonEmpty) {
               if (b.preferences.head == candidate && b.value == v) {
@@ -98,10 +98,10 @@ trait SenateExclusion[C <: Candidate] extends STV[C, ACTBallot] {
     var list: List[ACTBallot[C]]        = Nil
     var setExhausted: Set[ACTBallot[C]] = Set()
     value match {
-      case None => throw new Exception("Argument value are missing in trait ACTExclusion")
+      case None    => throw new Exception("Argument value are missing in trait ACTExclusion")
       case Some(v) =>
         newWinners match {
-          case None => throw new Exception("Argument newWinners are missing in trait ACTExclusion")
+          case None     => throw new Exception("Argument newWinners are missing in trait ACTExclusion")
           case Some(nW) =>
             for (b <- election if b.preferences.nonEmpty) {
               if (b.preferences.head == candidate && b.value == v) {

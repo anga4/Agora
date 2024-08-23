@@ -99,7 +99,7 @@ class Report[C <: Candidate, B[CC >: C <: Candidate] <: Ballot[CC]] {
     relection match { // election resulting from the action
       case Some(e) => // count.setElection(e)
       // TODO: commented because was taking much memory. Find a better solution (make a hash table for marked ballots).
-      case None =>
+      case None    =>
     }
 
     totals match {
@@ -132,7 +132,7 @@ class Report[C <: Candidate, B[CC >: C <: Candidate] <: Ballot[CC]] {
   def writeWinners(file: String): Unit = {
     val writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)))
     // writer.write(result.getWinners.toString())
-    var sw = ""
+    var sw     = ""
     println("\n WINNERS \n")
     for (w <- winners) {
       println(
@@ -150,7 +150,7 @@ class Report[C <: Candidate, B[CC >: C <: Candidate] <: Ballot[CC]] {
   def writeStabilityAnalysis(file: String): Unit = {
     val writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)))
     // writer.write(result.getWinners.toString())
-    var sw = ""
+    var sw     = ""
     for (analysis <- stabilityAnalysis)
       sw =
         sw + analysis._1 + "\n" + "Average Ratio: " + analysis._2 + "\n" + "Variance Ratio: " + analysis._3 + "\n\n\n";
@@ -268,7 +268,7 @@ class Report[C <: Candidate, B[CC >: C <: Candidate] <: Ballot[CC]] {
           for (b <- eB)
             totalweighteB      += b.weight
           exhhaustedandignored += eB.size + separator + totalweighteB.toInt + separator
-        case None =>
+        case None     =>
           exhhaustedandignored += " " + separator
       }
       ignoredBallots match {
@@ -291,7 +291,7 @@ class Report[C <: Candidate, B[CC >: C <: Candidate] <: Ballot[CC]] {
           for (b <- iB)
             totalweightiB      += b.weight
           exhhaustedandignored += iB.size + separator + totalweightiB.toInt
-        case None =>
+        case None     =>
       }
 
       line += exhhaustedandignored

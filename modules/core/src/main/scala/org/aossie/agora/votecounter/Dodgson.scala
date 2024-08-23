@@ -39,7 +39,7 @@ object Dodgson extends VoteCounter[PreferenceBallot] {
           case Some(candidate) => List((candidate, Rational(list.sum, 1)))
           case None            => List()
         }
-      case None => List()
+      case None       => List()
     }
   }
 

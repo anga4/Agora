@@ -41,7 +41,7 @@ trait ACTSurplusDistribution[C <: Candidate] extends STV[C, ACTBallot] {
     var listIgnored: List[ACTBallot[C]] = Nil
     var setExhausted: Set[ACTBallot[C]] = Set()
     markings match {
-      case None => throw new Exception("Last parcel is undetermined.")
+      case None       => throw new Exception("Last parcel is undetermined.")
       case Some(mrks) =>
         for (b <- election if !b.preferences.isEmpty) {
 
@@ -59,7 +59,7 @@ trait ACTSurplusDistribution[C <: Candidate] extends STV[C, ACTBallot] {
                     true,
                     b.value,
                     b.value
-                  ) :: list // take care of b.weight (4th argument) here
+                  ) :: list                    // take care of b.weight (4th argument) here
                 } else {
                   list = ACTBallot(
                     continuingPreferences,
@@ -173,7 +173,7 @@ trait ACTVoteCounterWithAllContinuingBallotsInSurplusDistribution[C <: Candidate
               true,
               b.value,
               b.value
-            ) :: list // take care of b.weight (4th argument) here
+            ) :: list                    // take care of b.weight (4th argument) here
           } else {
             list = ACTBallot(
               continuingPreferences,

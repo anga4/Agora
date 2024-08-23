@@ -36,9 +36,9 @@ object ProportionalApprovalVoting extends VoteCounter[PreferenceBallot] {
       }
     }
     val sortedCandidateSubsetList = scoredCandidateSubsetMap.toList.sortWith(_._2 > _._2)
-    val winnerList                = sortedCandidateSubsetList.head._1
-    val winnerScore               = sortedCandidateSubsetList.head._2
-    val finalList = winnerList.map {
+    val winnerList  = sortedCandidateSubsetList.head._1
+    val winnerScore = sortedCandidateSubsetList.head._2
+    val finalList   = winnerList.map {
       (_, winnerScore)
     }
     finalList
@@ -47,7 +47,7 @@ object ProportionalApprovalVoting extends VoteCounter[PreferenceBallot] {
   // generates subsets of length k of list of candidates in recursive manner
   def candidateSubsetListGenerator[C <: Candidate](k: Int, candidates: List[C]): List[List[C]] = {
     candidates match {
-      case Nil => Nil
+      case Nil          => Nil
       case head :: tail =>
         if (k <= 0 || k > candidates.length) {
           Nil

@@ -7,7 +7,7 @@ lazy val supportedScalaVersions = List(scala213, scala304)
 ThisBuild / name := "countvotes"
 ThisBuild / organization := "AOSSIE"
 ThisBuild / version := "1.2"
-ThisBuild / scalaVersion := scala304
+ThisBuild / scalaVersion := scala213
 
 resolvers += Resolver.sonatypeRepo("public")
 resolvers += "Sonatype OSS Snapshots" at
@@ -31,8 +31,6 @@ lazy val root = Project("agora", file("."))
   ).settings(commonSettings, crossScalaVersions := Nil)
 
 lazy val core = (project in file("modules/core"))
-  .configs(Testing.configs *)
-  .settings(Testing.settings *)
   .settings(
     commonSettings,
     crossScalaVersions := supportedScalaVersions,
@@ -40,8 +38,6 @@ lazy val core = (project in file("modules/core"))
   )
 
 lazy val cli = (project in file("modules/cli"))
-  .configs(Testing.configs *)
-  .settings(Testing.settings *)
   .dependsOn(
     core
   )
@@ -52,6 +48,7 @@ lazy val cli = (project in file("modules/cli"))
   )
 
 lazy val commonSettings = Seq(
+  coverageEnabled := true,
   scalafmtOnCompile := true,
   semanticdbEnabled := true,
   semanticdbVersion := scalafixSemanticdb.revision,
@@ -68,18 +65,20 @@ lazy val commonSettings = Seq(
       case Some((2, 13)) => Seq(
         "com.fasterxml.jackson.core" % "jackson-databind" % "2.9.0",
         "com.github.scopt" %% "scopt" % "4.1.0",
-        "org.specs2" %% "specs2-core" % "4.20.6" % "test,verification-test,bench",
+        "org.specs2" %% "specs2-core" % "4.20.6" % Test,
         "com.lihaoyi" %% "ammonite-ops" % "2.4.1",
         "ch.qos.logback" % "logback-classic" % "1.2.11",
         "com.typesafe.scala-logging" %% "scala-logging" % "3.9.5",
         "org.scala-lang.modules" %% "scala-parser-combinators" % "2.4.0",
         "com.typesafe.play" %% "play-json" % "2.9.4",
-        "org.typelevel" %% "spire" % "0.18.0"
+        "org.typelevel" %% "spire" % "0.18.0",
+        "org.scoverage" %% "scalac-scoverage-runtime" % "1.4.12" % Test,
+        "org.scoverage" % "scalac-scoverage-plugin" % "1.4.12"
       )
       case Some((3, 4)) => Seq(
         "com.fasterxml.jackson.core" % "jackson-databind" % "2.9.0",
         "com.github.scopt" %% "scopt" % "4.1.0",
-        "org.specs2" %% "specs2-core" % "4.20.6" % "test,verification-test,bench",
+        "org.specs2" %% "specs2-core" % "4.20.6" % Test,
         ("com.lihaoyi" %% "ammonite-ops" % "2.4.1").cross(CrossVersion.for3Use2_13),
         "ch.qos.logback" % "logback-classic" % "1.2.11",
         "com.typesafe.scala-logging" %% "scala-logging" % "3.9.5",

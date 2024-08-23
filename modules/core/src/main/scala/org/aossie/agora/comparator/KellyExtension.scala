@@ -26,10 +26,10 @@ object KellyExtension extends SetExtensionMethods[Candidate, Ballot] with LazyLo
     logger.info("Computing Kelly preferred set")
 
     val majorityMatrix = getPairwiseComparisons(election, candidates)
-    val setX = parameters.comparisonSets.get.set1
+    val setX           = parameters.comparisonSets.get.set1
       .map(name => candidates.find(cand => cand.name == name).get)
       .toSet
-    val setY = parameters.comparisonSets.get.set2
+    val setY           = parameters.comparisonSets.get.set2
       .map(name => candidates.find(cand => cand.name == name).get)
       .toSet
 

@@ -22,7 +22,7 @@ class Candidate(
         this.name == that.name &&
         this.id == that.id &&
         this.party == that.party
-      case _ => false
+      case _               => false
     }
 
   override def hashCode(): Int = {

@@ -105,7 +105,7 @@ abstract class ACT[C <: Candidate]
         for (c <- ccandidates) yield (c, tls.getOrElse(c, Rational(0, 1)))
       } else {
         quotaReached(tls, result.getQuota) match {
-          case true =>
+          case true  =>
             val ws: List[(C, Rational)] =
               returnNewWinners(tls, result.getQuota) //  sorted! tie resolved!
             println("New winners: " + ws)
@@ -120,7 +120,7 @@ abstract class ACT[C <: Candidate]
                 val newElection: Election[C, ACTBallot] = res._1
                 val newWinners: List[(C, Rational)]     = res._2
 
-                val nws = ws.length + newWinners.length
+                val nws        = ws.length + newWinners.length
                 println("Number of winners in this recursive call: " + nws)
                 val allWinners = ws ::: newWinners
                 if (nws == numVacancies) { allWinners }
@@ -133,7 +133,7 @@ abstract class ACT[C <: Candidate]
                   ) ::: allWinners
                   // TODO: care should be taken that newElection is not empty?!
                 }
-              case true => ws
+              case true  => ws
             }
           case false =>
             val leastVotedCandidate = chooseCandidateForExclusion(tls)
@@ -232,9 +232,9 @@ abstract class ACT[C <: Candidate]
 
         val (newElection, exhaustedBallots, ignoredBallots) =
           distributeSurplusVotes(election, winner, ctotal, markings, pendingWinners, tv)
-        val newElectionWithoutFractionInTotals = loseFraction(newElection, ccandidates)
+        val newElectionWithoutFractionInTotals              = loseFraction(newElection, ccandidates)
 
-        val newtotalsWithoutFraction = newElectionWithoutFractionInTotals.firstVotes(ccandidates)
+        val newtotalsWithoutFraction                      = newElectionWithoutFractionInTotals.firstVotes(ccandidates)
         val newtotalsWithoutFractionWithoutpendingwinners =
           newtotalsWithoutFraction.filterKeys(!pendingWinners.contains(_)).toMap
 

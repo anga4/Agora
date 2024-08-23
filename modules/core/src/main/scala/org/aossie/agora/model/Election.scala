@@ -19,7 +19,7 @@ class Election[C <: Candidate, B[CC >: C <: Candidate] <: Ballot[CC]](val ballot
 
   override protected def newSpecificBuilder: mutable.Builder[B[C], Election[C, B]] =
     Election.newBuilder
-  override def empty: Election[C, B] = Election(Nil)
+  override def empty: Election[C, B]                                               = Election(Nil)
 
   def iterator = ballots.iterator
 

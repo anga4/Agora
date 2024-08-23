@@ -32,7 +32,7 @@ class EgalitarianDP[C <: Candidate](val fairness: Double = 2) extends Egalitaria
       val candidateSets: List[List[C]] = cs.map(x =>
         recursiveWinnersComputation(e, cs.filterNot(elem => elem == x), numVacancies - 1) :+ x
       )
-      val result = candidateSets.maxBy(socialWelfare(e, _))
+      val result                       = candidateSets.maxBy(socialWelfare(e, _))
       idealCandidates += (((numVacancies, cs.toSet), result))
       result
   }

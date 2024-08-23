@@ -7,7 +7,7 @@ import org.specs2.mutable.Specification
 
 class CoombTest extends Specification {
 
-  val expectedCoombWinnerList = List(new Candidate("Nashville"))
+  val expectedCoombWinnerList  = List(new Candidate("Nashville"))
   val expectedCoombWinnerList1 = List(
     new Candidate("B")
   ) // tie resolution test case both A/B could be a winner here

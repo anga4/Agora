@@ -13,8 +13,8 @@ import org.aossie.agora.votecounter.stv.Input
 
 class MeekSTV[C <: Candidate]
     extends STV[C, PreferenceBallot]
-    with DroopQuota        // Imp
-    with NoFractionInQuota // Imp
+    with DroopQuota                                // Imp
+    with NoFractionInQuota                         // Imp
     with NewWinnersNotOrdered[C, PreferenceBallot]
     with SimpleSurplusDistributionTieResolution[C] // not necessary because of NewWinnersNotOrdered
     with SimpleExclusion[C]
@@ -102,7 +102,7 @@ class MeekSTV[C <: Candidate]
         // Find surplus and check if surplus + last candidate's number of votes < quota
         // If so, then KV = 0 for them
         // Else find surplus ones and reduce their KV
-        val surplusAmount = surplusQuantity(tls, result.getQuota)
+        val surplusAmount   = surplusQuantity(tls, result.getQuota)
         val sortedScoreList =
           tls.toList.filter(x => ccandidates.contains(x._1)).sortWith(_._2 < _._2)
         if (

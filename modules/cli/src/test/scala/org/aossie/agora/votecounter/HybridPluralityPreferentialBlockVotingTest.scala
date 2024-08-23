@@ -7,7 +7,7 @@ import org.specs2.mutable.Specification
 
 class HybridPluralityPreferentialBlockVotingTest extends Specification {
 
-  val expectedHybridPluralityPreferentialBlockVotingWinnerList = List(new Candidate("Sue"))
+  val expectedHybridPluralityPreferentialBlockVotingWinnerList  = List(new Candidate("Sue"))
   val expectedHybridPluralityPreferentialBlockVotingWinnerList1 =
     List(new Candidate("Bill"), new Candidate("Bob"))
 

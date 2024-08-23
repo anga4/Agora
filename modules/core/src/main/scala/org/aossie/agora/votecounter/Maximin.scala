@@ -29,7 +29,7 @@ object Maximin
     logger.info("Computing maximin Condorcet Winner")
 
     val pairwiseComparisons = pairwiseComparison(election, ccandidates)
-    val mcScores =
+    val mcScores            =
       getMaximinScores(pairwiseComparisons, ccandidates, election).toList.sortWith(_._2 > _._2)
 
     mcScores.head :: List()

@@ -28,7 +28,7 @@ object SinglePeakAnalyser extends PreferenceAnalysisMethod[Candidate, Ballot] {
           println("\n\nNot Single Peaked!\n\n")
           false
         }
-      case None =>
+      case None       =>
         println("\n\nNot Single Peaked!\n\n")
         false
     }

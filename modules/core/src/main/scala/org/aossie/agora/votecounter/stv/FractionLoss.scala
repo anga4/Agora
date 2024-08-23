@@ -15,7 +15,7 @@ trait ACTFractionLoss[C <: Candidate] extends STV[C, ACTBallot] {
     val pt   = e.firstVotes(ccandidates)
     var newe = e
     for ((k, v) <- pt) {
-      val n = v.toBigDecimal(0, java.math.RoundingMode.DOWN).toInt
+      val n       = v.toBigDecimal(0, java.math.RoundingMode.DOWN).toInt
       // println("k: " + k + "; v: " + v + "; n: " + n)
       val neweste = for (b <- newe if !b.preferences.isEmpty) yield {
         if (b.preferences.head == k) {

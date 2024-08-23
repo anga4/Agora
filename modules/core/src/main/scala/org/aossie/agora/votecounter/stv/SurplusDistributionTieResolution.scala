@@ -38,7 +38,7 @@ trait SenateSurplusDistributionTieResolution[C <: Candidate]
   ): List[C] = {
     if (candidates.nonEmpty) {
       if (totalshistory.nonEmpty) {
-        val totals = totalshistory.head
+        val totals                     = totalshistory.head
         println(" totals: " + totals)
         var setOfValues: Set[Rational] = Set()
         for (candidate <- totals.filterKeys(candidates).map(_._1)) {
@@ -53,7 +53,7 @@ trait SenateSurplusDistributionTieResolution[C <: Candidate]
       } else { // the Australian Electoral Officer shall determine the order
         Random.shuffle(
           candidates.toList
-        ) // If did not manage to resolve the tie, shuffle them randomly
+        )      // If did not manage to resolve the tie, shuffle them randomly
       }
     } else {
       throw new Exception("Empty set of winners with equal surplus.")
@@ -83,11 +83,11 @@ trait ACTSurplusDistributionTieResolution[C <: Candidate]
           )
         ) biggestcandidate = c
       }
-      val biggestcandidates = totalshistory.head.filter { p =>
+      val biggestcandidates                 = totalshistory.head.filter { p =>
         p._2 == totalshistory.head(biggestcandidate) && equaltotals.toSet.contains(p._1) == true
       }
-      val lbiggestcandidates = biggestcandidates.toList.map(x => x._1)
-      val totalsofremainingcandidates = totalshistory.head
+      val lbiggestcandidates                = biggestcandidates.toList.map(x => x._1)
+      val totalsofremainingcandidates       = totalshistory.head
         .filterKeys(k =>
           lbiggestcandidates.toSet.contains(k) == false && equaltotals.toSet.contains(k) == true
         )
@@ -156,7 +156,7 @@ trait ACTSurplusDistributionTieResolution[C <: Candidate]
   def resolveSurpluseDistributionTie(
       totalsOfWinners: Map[C, Rational]
   ): List[(C, Rational)] = {
-    val sortedList = totalsOfWinners.toList.sortBy(x => x._2).reverse // >
+    val sortedList          = totalsOfWinners.toList.sortBy(x => x._2).reverse // >
     // println("sortedList: " + sortedList)
     val listwithtieresolved =
       recOrderDifferent(totalsOfWinners, sortedList, result.getTotalsHistoryClone)

@@ -31,7 +31,7 @@ object Coomb extends VoteCounter[PreferenceBallot] with LazyLogging {
       b.preferences.find(c => ccandidates.contains(c)) match {
         case Some(candidate) =>
           firstRankedMap(candidate) = firstRankedMap.getOrElse(candidate, Rational(0, 1)) + b.weight
-        case None =>
+        case None            =>
       }
     }
 
@@ -53,7 +53,7 @@ object Coomb extends VoteCounter[PreferenceBallot] with LazyLogging {
         b.preferences.reverseIterator.find(c => ccandidates.contains(c)) match {
           case Some(candidate) =>
             lastRankedMap(candidate) = lastRankedMap.getOrElse(candidate, Rational(0, 1)) + b.weight
-          case None =>
+          case None            =>
         }
 
       }

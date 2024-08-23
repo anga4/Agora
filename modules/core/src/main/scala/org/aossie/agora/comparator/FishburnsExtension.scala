@@ -23,10 +23,10 @@ object FishburnsExtension extends SetExtensionMethods[Candidate, Ballot] {
         parameters.comparisonSets.get.set2.forall(c => candidates.exists(cand => cand.name == c))
     )
 
-    val setX = parameters.comparisonSets.get.set1
+    val setX   = parameters.comparisonSets.get.set1
       .map(name => candidates.find(cand => cand.name == name).get)
       .toSet
-    val setY = parameters.comparisonSets.get.set2
+    val setY   = parameters.comparisonSets.get.set2
       .map(name => candidates.find(cand => cand.name == name).get)
       .toSet
     val matrix = getPairwiseComparisons(election, candidates)

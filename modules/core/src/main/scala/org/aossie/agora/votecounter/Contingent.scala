@@ -21,8 +21,8 @@ object Contingent extends VoteCounter[PreferenceBallot] {
     if (ctSorted.head._2 > majorityThreshold * election.length) {
       List(ctSorted.head)
     } else {
-      val tlsSecondRound = ctSorted.take(2)
-      val ccands: List[C] =
+      val tlsSecondRound    = ctSorted.take(2)
+      val ccands: List[C]   =
         ccandidates.filterNot(m => m != tlsSecondRound.head._1 && m != tlsSecondRound.tail.head._1)
       val secondRoundScores = new MMap[C, Rational]
       for (b <- election if !b.preferences.isEmpty) {

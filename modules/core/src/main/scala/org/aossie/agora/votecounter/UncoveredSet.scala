@@ -30,10 +30,10 @@ object UncoveredSet
     val zeroRational     = Rational(0, 1)
     val majorityRational = Rational(1, 2)
     val electionResponse = pairwiseComparison(e, ccandidates)
-    val ucMatrix = BaseMatrix[Rational](ccandidates.size, ccandidates.size) { (i: Int, j: Int) =>
+    val ucMatrix         = BaseMatrix[Rational](ccandidates.size, ccandidates.size) { (i: Int, j: Int) =>
       zeroRational
     }
-    val totalVoters = e.weight
+    val totalVoters      = e.weight
 
     // mark all majority winners as rational 1
     ccandidates.foreach(c1 => {

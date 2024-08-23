@@ -112,9 +112,9 @@ object Main extends RegexParsers {
         parameters: Option[Parameters]
     ) = {
       c.method match {
-        case "EVACS" =>
+        case "EVACS"       =>
           val election = PreferencesParser.read(c.directory + electionFile)
-          var r =
+          var r        =
             (new EVACS).runVoteCounterGeneral(election, candidates_in_order, c.nvacancies.toInt)
           c.table match {
             case ACT => r.writeDistributionOfPreferencesACT(reportfile, Some(candidates_in_order))
@@ -123,23 +123,23 @@ object Main extends RegexParsers {
           println("The scrutiny was recorded to " + reportfile)
           r.writeWinners(winnersfile)
           println("The winners were recorded to " + winnersfile)
-        case "EVACSnoLP" =>
+        case "EVACSnoLP"   =>
           val election = PreferencesParser.read(c.directory + electionFile)
-          var r =
+          var r        =
             (new EVACSnoLP).runVoteCounterGeneral(election, candidates_in_order, c.nvacancies.toInt)
           r.writeDistributionOfPreferences(reportfile, Some(candidates_in_order))
           r.writeWinners(winnersfile)
-        case "EVACSDWD" =>
+        case "EVACSDWD"    =>
           val election = PreferencesParser.read(c.directory + electionFile)
-          var r = (new EVACSDelayedWD).runVoteCounterGeneral(
+          var r        = (new EVACSDelayedWD).runVoteCounterGeneral(
             election,
             candidates_in_order,
             c.nvacancies.toInt
           )
           r.writeDistributionOfPreferences(reportfile, Some(candidates_in_order))
           r.writeWinners(winnersfile)
-        case "Senate" =>
-          val election = PreferencesParser.read(c.directory + electionFile)
+        case "Senate"      =>
+          val election        = PreferencesParser.read(c.directory + electionFile)
           val electionwithIds =
             for (b <- election)
               yield new PreferenceBallot(
@@ -147,7 +147,7 @@ object Main extends RegexParsers {
                 election.indexOf(b) + 1,
                 Rational(1, 1)
               )
-          val r = (new AustralianSenate).runVoteCounterGeneral(
+          val r               = (new AustralianSenate).runVoteCounterGeneral(
             Election(electionwithIds),
             candidates_in_order,
             c.nvacancies.toInt
@@ -159,16 +159,16 @@ object Main extends RegexParsers {
           println("The scrutiny was recorded to " + reportfile)
           r.writeWinners(winnersfile)
           println("The winners were recorded to " + winnersfile)
-        case "Simple" =>
+        case "Simple"      =>
           val election = PreferencesParser.read(c.directory + electionFile)
           var r        = (new SimpleSTV).runVoteCounter(election, candidates_in_order, c.nvacancies.toInt)
           r.writeWinners(winnersfile)
         case "Egalitarian" =>
           val election = PreferencesParser.read(c.directory + electionFile)
-          var r =
+          var r        =
             (new EgalitarianBrute).runVoteCounter(election, candidates_in_order, c.nvacancies.toInt)
           r.writeWinners(winnersfile)
-        case "Majority" =>
+        case "Majority"    =>
           val election = PreferencesParser.read(c.directory + electionFile)
           var r        = Majority.runVoteCounter(election, candidates_in_order, c.nvacancies.toInt)
           r.writeWinners(winnersfile)
@@ -200,17 +200,17 @@ object Main extends RegexParsers {
 
         case "InstantRunoff2Round" =>
           val election = PreferencesParser.read(c.directory + electionFile)
-          var r =
+          var r        =
             InstantRunoff2Round.runVoteCounter(election, candidates_in_order, c.nvacancies.toInt)
           r.writeWinners(winnersfile)
-        case "Coomb" =>
+        case "Coomb"               =>
           val election = PreferencesParser.read(c.directory + electionFile)
           var r        = Coomb.runVoteCounter(election, candidates_in_order, c.nvacancies.toInt)
           r.writeWinners(winnersfile)
 
         case "InstantExhaustiveBallot" =>
           val election = PreferencesParser.read(c.directory + electionFile)
-          var r = InstantExhaustiveBallot.runVoteCounter(
+          var r        = InstantExhaustiveBallot.runVoteCounter(
             election,
             candidates_in_order,
             c.nvacancies.toInt
@@ -236,7 +236,7 @@ object Main extends RegexParsers {
           val election = PreferencesParser.read(c.directory + electionFile)
           var r        = Copeland.runVoteCounter(election, candidates_in_order, c.nvacancies.toInt)
           r.writeWinners(winnersfile)
-        case "Dodgson" =>
+        case "Dodgson"  =>
           val election = PreferencesParser.read(c.directory + electionFile)
           var r        = Dodgson.runVoteCounter(election, candidates_in_order, c.nvacancies.toInt)
           r.writeWinners(winnersfile)
@@ -253,7 +253,7 @@ object Main extends RegexParsers {
 
         case "InstantExhaustiveDropOff" =>
           val election = PreferencesParser.read(c.directory + electionFile)
-          var r = InstantExhaustiveDropOffRule.runVoteCounter(
+          var r        = InstantExhaustiveDropOffRule.runVoteCounter(
             election,
             candidates_in_order,
             c.nvacancies.toInt
@@ -262,7 +262,7 @@ object Main extends RegexParsers {
 
         case "PreferentialBlockVoting" =>
           val election = PreferencesParser.read(c.directory + electionFile)
-          var r = PreferentialBlockVoting.runVoteCounter(
+          var r        = PreferentialBlockVoting.runVoteCounter(
             election,
             candidates_in_order,
             c.nvacancies.toInt
@@ -271,7 +271,7 @@ object Main extends RegexParsers {
 
         case "HybridPluralityPreferentialBlockVoting" =>
           val election = PreferencesParser.read(c.directory + electionFile)
-          var r = HybridPluralityPreferentialBlockVoting.runVoteCounter(
+          var r        = HybridPluralityPreferentialBlockVoting.runVoteCounter(
             election,
             candidates_in_order,
             c.nvacancies.toInt
@@ -285,7 +285,7 @@ object Main extends RegexParsers {
 
         case "SPAV" =>
           val election = PreferencesParser.read(c.directory + electionFile)
-          var r = SequentialProportionalApprovalVoting.runVoteCounter(
+          var r        = SequentialProportionalApprovalVoting.runVoteCounter(
             election,
             candidates_in_order,
             c.nvacancies.toInt
@@ -294,7 +294,7 @@ object Main extends RegexParsers {
 
         case "PAV" =>
           val election = PreferencesParser.read(c.directory + electionFile)
-          var r = ProportionalApprovalVoting.runVoteCounter(
+          var r        = ProportionalApprovalVoting.runVoteCounter(
             election,
             candidates_in_order,
             c.nvacancies.toInt
@@ -303,7 +303,7 @@ object Main extends RegexParsers {
 
         case "SAV" =>
           val election = PreferencesParser.read(c.directory + electionFile)
-          var r = SatisfactionApprovalVoting.runVoteCounter(
+          var r        = SatisfactionApprovalVoting.runVoteCounter(
             election,
             candidates_in_order,
             c.nvacancies.toInt
@@ -315,7 +315,7 @@ object Main extends RegexParsers {
             case Some(param) =>
               var r = SMC.runVoteCounter(election, candidates_in_order, param, c.nvacancies.toInt)
               r.writeWinners(winnersfile)
-            case None =>
+            case None        =>
               println("\n\nPlease provide the comparison order to execute this voting method\n\n")
           }
 
@@ -351,7 +351,7 @@ object Main extends RegexParsers {
             case Some(param) =>
               var r = BipartisanSet.runVoteCounter(election, candidates_in_order, param)
               r.writeWinners(winnersfile)
-            case None =>
+            case None        =>
               println("Please provide probability distribution to compute bipartisan set")
           }
 
@@ -366,7 +366,7 @@ object Main extends RegexParsers {
                 param
               )
               r.writeWinners(winnersfile)
-            case None =>
+            case None        =>
               println(
                 "Please provide a .json file containing the majority percentage required to elect winner."
               )
@@ -389,25 +389,25 @@ object Main extends RegexParsers {
     parser.parse(args, Config()).map { c =>
       c.ballotsfile match {
         case Some(filename) => // ONLY ONE FILE IS ANALYSED
-          val candidates = CandidatesParser.read(c.directory + c.candidatesfile)
+          val candidates  = CandidatesParser.read(c.directory + c.candidatesfile)
           println("Candidates: " + candidates)
           val winnersfile =
             c.directory + "winners/" + "Winners_" + c.method + "_InputFile_" + filename
-          val reportfile =
+          val reportfile  =
             c.directory + "reports/" + "Report_" + c.method + "_InputFile_" + filename
           callMethod(c, filename, winnersfile, reportfile, candidates, c.parameters)
-        case None => // ALL FILES IN THE DIRECTORY ARE ANALYSED
+        case None           => // ALL FILES IN THE DIRECTORY ARE ANALYSED
           val candidates = CandidatesParser.read(c.directory + c.candidatesfile)
           val files      = new java.io.File(c.directory).listFiles.filter(_.getName.endsWith(".kat"))
           for (file <- files) {
-            val filename = file.getName
+            val filename    = file.getName
             println("------------------------------------------------")
             println("\n" + "    NEW ELECTION: " + file.getName + "\n")
             println("------------------------------------------------")
             // val election =  PreferencesParser.read(c.directory + filename)
             val winnersfile =
               c.directory + "winners/" + "Winners_" + c.method + "_InputFile_" + filename
-            val reportfile =
+            val reportfile  =
               c.directory + "reports/" + "Report_" + c.method + "_InputFile_" + filename
             callMethod(c, filename, winnersfile, reportfile, candidates, c.parameters)
           }

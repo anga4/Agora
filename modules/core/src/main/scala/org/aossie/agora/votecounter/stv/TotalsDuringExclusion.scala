@@ -12,7 +12,7 @@ trait ACTTotalsDuringExclusion[C <: Candidate] extends ACT[C] {
       step: (C, Rational),
       newElectionWithoutFractionInTotals: Election[C, ACTBallot]
   ): Option[Int] = {
-    val roundedExcludedTotal = computeRoundedExcludedTotal(step, newElectionWithoutFractionInTotals)
+    val roundedExcludedTotal        = computeRoundedExcludedTotal(step, newElectionWithoutFractionInTotals)
     val previousTotalOfTheCandidate =
       result.getTotalsHistoryClone
         .head(step._1)
@@ -31,7 +31,7 @@ trait ACTTotalsDuringExclusion[C <: Candidate] extends ACT[C] {
       if (b.preferences.head == step._1 && b.value == step._2) {
         numOccurences += 1
       }
-    val total        = numOccurences * step._2
+    val total = numOccurences * step._2
     val roundedtotal = total.toBigDecimal(0, java.math.RoundingMode.DOWN).toInt
     roundedtotal
   }
